@@ -1,20 +1,10 @@
-// const Mongoclient = require('mongodb').MongoClient;
-const {MongoClient,ObjectId} = require('mongodb');
-
-MongoClient.connect('mongodb://localhost/27017/TodoApp',{
-  useNewUrlParser : true
-},(err,client)=>{
-  if(err){
-    console.log('Could not connect to mongodb');
-  }
-  console.log('Connected to server');
-  const db = client.db('TodoApp');
-
-  db.collection('Todos').deleteMany({text:'Eat lunch'}).then((result)=>{
-    console.log(result);
+const mongodb = require('./mongo-db-connect.js');
+mongodb.connect.then(dbObject=>{
+  const db = dbObject.db('TodoApp');
+  db.collection('Products').deleteMany({id:1}).then((result)=>{
   },(err)=>{
-      console.log('Unable to fetch Users',err);
+    console.log('Unable to delete users',err)
   })
-
-  client.close();
+}).catch(error=>{
+  console.log(error);
 });

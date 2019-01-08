@@ -9,7 +9,7 @@ MongoClient.connect('mongodb://localhost/27017/TodoApp',{
   }
   console.log('Connected to server');
   const db = client.db('TodoApp');
-  
+
 
 
   db.collection('Users').find().count().then((docs)=>{

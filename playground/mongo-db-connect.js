@@ -1,10 +1,17 @@
 const MongoClient = require('mongodb').MongoClient;
-MongoClient.connect('mongodb://localhost/27017/TodoApp',{
-  useNewUrlParser:true
-},(err,client)=>{
-  if(err){
-    return console.log(err);
-  }
-  console.log('Connected to server');
-  client.close();
-});
+
+ const connect = () => {
+   return new Promise((resolve, reject) => {
+     MongoClient.connect('mongodb://localhost/27017/TodoApp',{
+       useNewUrlParser:true
+     },(err,client) => {
+       if(err){
+        return reject(err);
+       }
+       // client.db('TodoApp');
+       return resolve(client);
+     });
+   });
+ };
+
+module.exports.connect = connect();
